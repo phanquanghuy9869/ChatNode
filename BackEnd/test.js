@@ -5,7 +5,7 @@ console.log(pools);
 async function dat() {
     var pool = await pools.getConnection();
     const request = pool.request();
-    request.query('SELECT * FROM Kpi_Task WHERE TaskIndex = 1', async function (err, data) {
+    request.query('SELECT * FROM Test_Student', async function (err, data) {
         console.log(data.recordset);
         await pools.closeConnection();
     });

@@ -4,6 +4,7 @@ const config = require('../../config/config.js');
 const sqlPool = function() {
     let pool = null;
     const sqlConfig = config.sql;
+    sqlConfig.port = 1433;
     this.closePool = async () => {
         if (pool == null) return;
         await pool.close();
@@ -22,7 +23,7 @@ const sqlPool = function() {
            return pool;
        } catch (error) {
            console.log(error);
-           await closePool();
+           await this.closePool();
            return null;
        }
     }
