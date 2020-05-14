@@ -24,6 +24,9 @@ module.exports = {
         user: SQL_USER,
         password: SQL_PASSWORD,
         // @ataft's comment helped me solve my issue as well - setting "encrypt" to false fixed my issue.
-        encrypt: false
+        encrypt: false,
+    },
+    auth: {        
+        secret: 'worldisfullofdevelopers'
     }
 }
