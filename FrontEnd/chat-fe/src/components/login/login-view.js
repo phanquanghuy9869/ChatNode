@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Auth from '../auth/AuthService'; import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types'
+
+
 
 function Copyright() {
   return (
@@ -48,6 +52,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const [state, setState] = React.useState({redirect: false});
+
+  function auth(e) {
+    e.preventDefault();
+    Auth.authenticate();
+
+    setState({
+      redirect: true
+    });
+  }
+
+  const renderRedirect = () => {
+    if (state.redirect) {
+      return <Redirect to='/target' />
+    }
+  }
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -86,12 +107,15 @@ export default function SignIn() {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+
+          {renderRedirect()}
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={auth}
           >
             Sign In
           </Button>

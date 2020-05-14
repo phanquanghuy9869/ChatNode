@@ -17,6 +17,15 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import {
+  BrowserRouter,
+  Link,
+  Switch,
+  Route,
+  Redirect,
+  withRouter
+} from 'react-router-dom';
+import Auth from '../auth/AuthService';
 
 const drawerWidth = 240;
 
@@ -77,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft() {
+const PersistentDrawerLeft = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -130,10 +139,11 @@ export default function PersistentDrawerLeft() {
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {['Public', 'protected', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+              {/* <ListItemText primary={text} /> */}
+              <Link to={text}>{text}</Link><br />
             </ListItem>
           ))}
         </List>
@@ -180,3 +190,35 @@ export default function PersistentDrawerLeft() {
     </div>
   );
 }
+
+const Menu = withRouter(({ history }) => (
+  Auth.isAuthenticated ? (
+    <div>
+      <PersistentDrawerLeft />
+    </div>
+  ) : (
+      <Redirect to={{
+        pathname: '/login'
+      }} />
+    )
+))
+
+export default Menu;
+
+// const Menu = withRouter(({ history }) => (
+//   Auth.isAuthenticated ? (
+//     <div>
+//       Welcome! <button onClick={() => {
+//         Auth.signout(() => history.push('/login'))
+//       }}>Sign out</button>
+//       {/* <ul>
+//         <li><Link to="/about">About</Link></li>
+//         <li><Link to="/protected">Protected Page</Link></li>
+//       </ul> */}
+//     </div>
+//   ) : (
+//       <Redirect to={{
+//         pathname: '/login'
+//       }} />
+//     )
+// ))

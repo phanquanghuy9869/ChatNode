@@ -23,6 +23,7 @@ class Header extends React.Component {
                 <Link to='/'>Home</Link><br />
                 <Link to='Public'>Public</Link><br />
                 <Link to='protected'>Protected</Link><br />
+                <Link to='menu'>Menu</Link><br />
                 <button onClick={this.login}>Login</button><br />
                 <button onClick={this.logout}>Logout</button>
             </div>
