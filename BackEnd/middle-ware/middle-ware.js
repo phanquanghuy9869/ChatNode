@@ -11,12 +11,12 @@ let validateToken = (req, res, next) => {
         });
     }
 
-    if (token.startWith('Bearer ')) {
+    if (token.includes('Bearer ')) {
         token = token.slice(7, token.lenth);
     }
 
     if (token) {
-        jwt.verify(token, config.secret, (err, decoded) => {
+        jwt.verify(token, config.auth.secret, (err, decoded) => {
             if (err) {
                 return res.json({
                     isSuccess: false,
@@ -46,8 +46,8 @@ const login = (req, res) => {
         });
     }
 
-    let token = jwt.sign({ username: username }, config.secret, { expiresIn: '69h' });
-    res.secret({
+    let token = jwt.sign({ username: username }, config.auth.secret, { expiresIn: '69h' });
+    res.json({
         isSuccess: true,
         token: token,
         message: 'Authentication successful!'
