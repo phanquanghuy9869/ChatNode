@@ -1,11 +1,17 @@
-const userRepo = function() {
-    this.getUser = function() {
+const dbCtx = require('../database/mongo-db.js');
 
-    }
+const collectionName = 'user';
 
-    this.login = function() {
-        
-    }
+exports.getUser = async function () {
+
 }
 
-module.exports = userRepo
+exports.createUser = async function (user) {
+    console.log('repo');
+    const rs = dbCtx.insertOne(collectionName, user);
+    return rs;
+}
+
+exports.login = async function () {
+
+}

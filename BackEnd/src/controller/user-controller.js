@@ -1,10 +1,13 @@
-const userController = function (service) {
-    this._service = service;
+const userService = require('../service/user-service.js');
+const respond = require('../utilities/respond.js');
 
-    this.createUser = function (rq, rp) {
-        const msg = this._service.createUser()
-        rp.json({ message: 'Controller call service and get this respond: ' + msg });
-    }
+exports.createUser = async function (rq, rp) {
+    // try {
+
+    // } catch (error) {
+    //     rp.json(error);
+    // }
+    const rs = await userService.createUser(rq.body);
+    const res = respond.success(data);
+    rp.json(res);
 }
-
-module.exports = userController;
