@@ -15,5 +15,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.7",
     "mssql": "^6.2.0"
+  },
+  "devDependencies": {
+    "jest": "^26.0.1"
   }
 }

@@ -7,7 +7,6 @@ exports.getUser = async function () {
 }
 
 exports.createUser = async function (user) {
-    console.log('repo');
     const rs = dbCtx.insertOne(collectionName, user);
     return rs;
 }

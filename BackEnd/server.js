@@ -6,7 +6,7 @@ const process = require('process');
 
 var app = express();
 app.use(bodyParser.urlencoded({ // Middleware
-    extended: true
+  extended: true
 }));
 app.use(bodyParser.json());
 
@@ -14,8 +14,17 @@ app.use(bodyParser.json());
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
 
+// custom error handler
+app.use(function (err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).json({
+    isSuccess: false,
+    message: 'Unhandle error'
+  })
+})
+
 var server = app.listen(689, function () {
-    console.log('Server running ...');
+  console.log('Server running ...');
 });
 
 process
