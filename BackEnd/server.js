@@ -4,18 +4,12 @@ const authRouter = require('./src/route/auth-router.js');
 const userRouter = require('./src/route/user-router.js');
 const process = require('process');
 const middleWare = require('./middle-ware/middle-ware.js');
-const io = require('socket.io')(http);
 
 var app = express();
 app.use(bodyParser.urlencoded({ // Middleware
   extended: true
 }));
 app.use(bodyParser.json());
-
-// var authRouter = require('./src/route/auth-router.js');
-app.use('/auth', authRouter);
-// app.use('/user', middleWare.validateToken, userRouter);
-app.use('/user', userRouter);
 
 // custom error handler
 app.use(function (err, req, res, next) {
@@ -26,12 +20,36 @@ app.use(function (err, req, res, next) {
   })
 })
 
+
+app.get('/', function (rq, rp) {
+  rp.sendFile('E:\\WorkSpace\\NodeJs\\ChatNodeJs\\ChatNode\\BackEnd\\index.html');
+})
+// var authRouter = require('./src/route/auth-router.js');
+app.use('/auth', authRouter);
+// app.use('/user', middleWare.validateToken, userRouter);
+app.use('/user', userRouter);
+
+
 server = app.listen(689, function () {
   console.log('Server running ...');
 });
 
-io.sockets.on('connection', function(socket) {
-  
+
+const io = require('socket.io')(server);
+io.sockets.on('connection', function (socket) {
+  socket.on('username', function (username) {
+    socket.username = username;
+    io.emit('is_online', '🔵 <i>' + socket.username + ' join the chat..</i>');
+  })
+
+  socket.on('disconnect', function (username) {
+    socket.username = username;
+    io.emit('is_online', '🔴 <i>' + socket.username + ' join the chat..</i>');
+  })
+
+  socket.on('chat_message', function (msg) {
+    io.emit('chat_message', '<strong>' + socket.username + '</strong>: ' + msg);
+  })
 })
 
 process
