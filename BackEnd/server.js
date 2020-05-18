@@ -4,6 +4,7 @@ const authRouter = require('./src/route/auth-router.js');
 const userRouter = require('./src/route/user-router.js');
 const process = require('process');
 const middleWare = require('./middle-ware/middle-ware.js');
+const io = require('socket.io')(http);
 
 var app = express();
 app.use(bodyParser.urlencoded({ // Middleware
@@ -25,9 +26,13 @@ app.use(function (err, req, res, next) {
   })
 })
 
-var server = app.listen(689, function () {
+server = app.listen(689, function () {
   console.log('Server running ...');
 });
+
+io.sockets.on('connection', function(socket) {
+  
+})
 
 process
   .on('unhandledRejection', (reason, p) => {

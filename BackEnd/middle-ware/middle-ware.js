@@ -1,5 +1,6 @@
 let jwt = require('jsonwebtoken');
 let config = require('../config/config.js');
+const userService = require('../src/service/user-service');
 
 let validateToken = (req, res, next) => {
     let token = req.headers['x-access-token'] || req.headers['authorization'];
@@ -35,14 +36,17 @@ let validateToken = (req, res, next) => {
     }
 };
 
-const login = (req, res) => {
+const login = async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
+    let user = null;
 
-    if (username !== username || password !== password) {
+    try {
+        user = await user.login(username, password);
+    } catch (error) {
         res.send(400).json({
             isSuccess: false,
-            message: 'Authentication failed! Please check the request'
+            message: error.message
         });
     }
 

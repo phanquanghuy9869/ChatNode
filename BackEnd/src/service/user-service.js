@@ -22,3 +22,17 @@ validateUser = async function (user) {
     const isSuccess = error === '' ? true : false;
     return { isSuccess: isSuccess, message: error };
 }
+
+exports.login = async function (username, password) {
+    const user = await userRepo.getUserByUsername(username);
+
+    if (user == null) {
+        throw Error('User is not existed');
+    }
+
+    if (!encryptHelper.comparePassword(password, user.password)) {
+        throw Error('Wrong password');
+    }
+
+    return user;
+}

@@ -17,7 +17,7 @@ exports.connectSingleDb = async function (callback, ...args) {
     }
 }
 
-exports.insertOne = async function (collectionName, record) {    
+exports.insertOne = async function (collectionName, record) {
     const ctx = await exports.connectDb();
     var client = ctx.client;
     var rs;
@@ -36,6 +36,26 @@ exports.isExists = async function (collectionName, query) {
     try {
         const rs = await ctx.database.collection(collectionName).count(query, { limit: 1 });
         return rs === 1;
+    } finally {
+        ctx.client.close();
+    }
+}
+
+exports.getOneRecord = async function (collectionName, query, fields) {
+    const ctx = await exports.connectDb();
+    try {
+        const record = await ctx.database.collection(collectionName).findOne(query, fields);
+        return record;
+    } finally {
+        ctx.client.close();
+    }
+}
+
+exports.getRecords = async function(collectionName, query, fields) {
+    const ctx = await exports.connectDb();
+    try {
+        const records = await ctx.database.collection(collectionName).find(query, fields);
+        return records;
     } finally {
         ctx.client.close();
     }
