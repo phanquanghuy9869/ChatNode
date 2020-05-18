@@ -1,14 +1,23 @@
 const mongoClient = require('mongodb').MongoClient;
 const config = require('../../config/config.js');
 
-
 exports.connectDb = async function () {
     const client = await mongoClient.connect(config.db.server);
     const db = client.db(config.db.database);
     return { client: client, database: db }
 }
 
-exports.insertOne = async function (collectionName, record) {
+exports.connectSingleDb = async function (callback, ...args) {
+    const client = await mongoClient.connect(config.db.server);
+    const db = client.db(config.db.database);
+    try {
+        await callback(db, ...args);
+    } finally {
+        client.close();
+    }
+}
+
+exports.insertOne = async function (collectionName, record) {    
     const ctx = await exports.connectDb();
     var client = ctx.client;
     var rs;
@@ -25,8 +34,8 @@ exports.insertOne = async function (collectionName, record) {
 exports.isExists = async function (collectionName, query) {
     const ctx = await exports.connectDb();
     try {
-        const rs = ctx.database.collection(collectionName).count(query, {limit: 1});
-        return rs == 1;
+        const rs = await ctx.database.collection(collectionName).count(query, { limit: 1 });
+        return rs === 1;
     } finally {
         ctx.client.close();
     }

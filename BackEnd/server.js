@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const authRouter = require('./src/route/auth-router.js');
 const userRouter = require('./src/route/user-router.js');
 const process = require('process');
+const middleWare = require('./middle-ware/middle-ware.js');
 
 var app = express();
 app.use(bodyParser.urlencoded({ // Middleware
@@ -12,6 +13,7 @@ app.use(bodyParser.json());
 
 // var authRouter = require('./src/route/auth-router.js');
 app.use('/auth', authRouter);
+// app.use('/user', middleWare.validateToken, userRouter);
 app.use('/user', userRouter);
 
 // custom error handler

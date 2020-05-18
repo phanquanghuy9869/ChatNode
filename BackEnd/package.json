@@ -4,7 +4,7 @@
   "description": "chat back end",
   "main": "server.js",
   "scripts": {
-    "test": "test"
+    "test": "jest --runInBand ./test"
   },
   "author": "",
   "license": "ISC",
@@ -13,10 +13,16 @@
     "dotenv": "^8.2.0",
     "express.js": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^3.5.7",
-    "mssql": "^6.2.0"
+    "mongodb": "^3.5.7"
   },
   "devDependencies": {
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "mongodb-memory-server": "^6.6.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }
