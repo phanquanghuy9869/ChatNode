@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const authRouter = require('./src/route/auth-router.js');
 const userRouter = require('./src/route/user-router.js');
 const process = require('process');
-const middleWare = require('./middle-ware/middle-ware.js');
+const socketHandler = require('./src/socket/socket-handler');
 
 var app = express();
 app.use(bodyParser.urlencoded({ // Middleware
@@ -22,7 +22,7 @@ app.use(function (err, req, res, next) {
 
 
 app.get('/', function (rq, rp) {
-  rp.sendFile('E:\\WorkSpace\\NodeJs\\ChatNodeJs\\ChatNode\\BackEnd\\index.html');
+  rp.sendFile('C:\\Workspace\\Nodejs\\Chat\\ChatNode\\BackEnd\\index.html');
 })
 // var authRouter = require('./src/route/auth-router.js');
 app.use('/auth', authRouter);
@@ -33,24 +33,7 @@ app.use('/user', userRouter);
 server = app.listen(689, function () {
   console.log('Server running ...');
 });
-
-
-const io = require('socket.io')(server);
-io.sockets.on('connection', function (socket) {
-  socket.on('username', function (username) {
-    socket.username = username;
-    io.emit('is_online', '🔵 <i>' + socket.username + ' join the chat..</i>');
-  })
-
-  socket.on('disconnect', function (username) {
-    socket.username = username;
-    io.emit('is_online', '🔴 <i>' + socket.username + ' join the chat..</i>');
-  })
-
-  socket.on('chat_message', function (msg) {
-    io.emit('chat_message', '<strong>' + socket.username + '</strong>: ' + msg);
-  })
-})
+socketHandler.registerSocket(server);
 
 process
   .on('unhandledRejection', (reason, p) => {
@@ -60,3 +43,5 @@ process
     console.error(err, 'Uncaught Exception thrown');
     process.exit(1);
   });
+
+// module.exports = { server: app, ioServer: io};
