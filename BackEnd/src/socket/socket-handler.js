@@ -40,14 +40,14 @@ exports.registerSocket = function (server) {
 //     io.sockets.on('connection', function (socket) {
 //         var eventHandlers = {
 //             chatHandler: new chatHandler(socket, io)
-//         }         
+//         }
 
-//        for (const category in eventHandlers) {
+//         for (const category in eventHandlers) {
 //             let handlers = eventHandlers[category].handlers;
 //             for (const event in handlers) {
 //                 socket.on(event, handlers[event]);
 //             }
-//        }
+//         }
 //     });
 // }
 
