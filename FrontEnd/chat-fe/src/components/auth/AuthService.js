@@ -10,6 +10,7 @@
 //         return this.isAuthenticated;
 //     }
 // };
+import axios from 'axios';
 
 export class AuthService {
     constructor() {
@@ -17,7 +18,12 @@ export class AuthService {
     }
 
     authenticate() {
-
+        axios.get(`https://www.reddit.com/r/reactjs.json`).then(
+            res => {
+                console.log('res: ', res.data.data.children.map(obj => obj.data));
+                setPosts(res.data.data.children.map(obj => obj.data));        
+            }
+        )
     }
 }
 
