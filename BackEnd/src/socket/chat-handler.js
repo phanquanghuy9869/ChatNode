@@ -19,17 +19,17 @@ function initCache(cache) {
 }
 
 function username(username) {
-    this.socket.username = username;    
-    this.io.emit('is_online', '🔵 <i>' + this.socket.username + ' join the chat..</i>');
+    this.socket.username = username;   
+    this.io.to(this.socket.room).emit('is_online', '🔵 <i>' + this.socket.username + ' join the chat room: </i>' + this.socket.room);
 }
 
 function disconnect(username) {
     this.socket.username = username;
-    this.io.emit('is_online', '🔴 <i>' + this.socket.username + ' join the chat..</i>');
+    this.io.to(this.socket.room).emit('is_online', '🔴 <i>' + this.socket.username + ' join the chat..</i>');
 }
 
 function chat_message(msg) {
-    this.io.emit('chat_message', '<strong>' + this.socket.username + '</strong>: ' + msg);
+    this.io.to(this.socket.room).emit('chat_message', '<strong>' + this.socket.username + '</strong>: ' + msg);
 }
 
 module.exports = ChatHandler;
