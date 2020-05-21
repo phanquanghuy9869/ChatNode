@@ -11,20 +11,34 @@
 //     }
 // };
 import axios from 'axios';
+import AppConfig from '../../config/config';
 
 export class AuthService {
     constructor() {
+        this.isAuthenticated = true;
+    }
+
+    async authenticate() {
+        this.isAuthenticated = true;
+        try {
+            const response =  await axios.get(AppConfig.auth.token);
+            const res = response.data;
+            if (res.isSuccess) {
+                this.isAuthenticated = true;
+                return this.isAuthenticated;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    signout() {
         this.isAuthenticated = false;
     }
 
-    authenticate() {
-        axios.get(`https://www.reddit.com/r/reactjs.json`).then(
-            res => {
-                console.log('res: ', res.data.data.children.map(obj => obj.data));
-                setPosts(res.data.data.children.map(obj => obj.data));        
-            }
-        )
+    getAuth() {
+        return this.isAuthenticated;
     }
 }
 
-module.exports = new AuthService();
+export default new AuthService();

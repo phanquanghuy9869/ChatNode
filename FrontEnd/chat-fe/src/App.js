@@ -3,9 +3,9 @@ import './App.css';
 import Header from './test/Header';
 import Router from './components/route/Router';
 import Menu from './components/menu/menu-view';
-import AppRouter from './components/route/Router';
 // const webpack = require('webpack');
 import AppConfig from './config/config';
+import Chat from './components/chat/chat-view'
 
 // function App() {
 //   const code = AppConfig.apiUrl;
@@ -21,10 +21,8 @@ import AppConfig from './config/config';
 function App() {
   return (
     <div className="App">
-      {/* <Header />
-      <Router /> */}
-      <Menu />      
-      <AppRouter />
+      {/* <Menu />      */}
+      <Chat />
     </div>
   );
 }

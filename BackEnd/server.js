@@ -1,33 +1,24 @@
 var express = require('express');
 const bodyParser = require('body-parser');
-const authRouter = require('./src/route/auth-router.js');
-const userRouter = require('./src/route/user-router.js');
 const process = require('process');
+const cors = require('cors');
 const socketHandler = require('./src/socket/socket-handler');
+const { handleError } = require('./src/utilities/error-handler');
+const { registerModule } = require('./src/route/module-router');
 
 var app = express();
 app.use(bodyParser.urlencoded({ // Middleware
   extended: true
 }));
 app.use(bodyParser.json());
-
 // custom error handler
-app.use(function (err, req, res, next) {
-  console.error(err.stack)
-  res.status(500).json({
-    isSuccess: false,
-    message: 'Unhandle error'
-  })
-})
-
-
+app.use(handleError)
+// cor
+app.use(cors());
 app.get('/', function (rq, rp) {
   rp.sendFile('C:\\Workspace\\Nodejs\\Chat\\ChatNode\\BackEnd\\index.html');
 })
-// var authRouter = require('./src/route/auth-router.js');
-app.use('/auth', authRouter);
-// app.use('/user', middleWare.validateToken, userRouter);
-app.use('/user', userRouter);
+registerModule(app);
 
 
 server = app.listen(689, function () {
