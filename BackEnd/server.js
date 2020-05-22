@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 // custom error handler
 app.use(handleError)
 // cor
-app.use(cors());
+app.use(cors({credentials: true, origin: true}));
 app.get('/', function (rq, rp) {
   rp.sendFile('E:\\WorkSpace\\NodeJs\\ChatNodeJs\\ChatNode\\BackEnd\\index.html');
 })

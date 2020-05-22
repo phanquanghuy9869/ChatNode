@@ -15,21 +15,20 @@ import AppConfig from '../../config/config';
 
 export class AuthService {
     constructor() {
-        this.isAuthenticated = true;
     }
 
-    async authenticate() {
-        this.isAuthenticated = true;
-        // try {
-        //     const response =  await axios.get(AppConfig.auth.token);
-        //     const res = response.data;
-        //     if (res.isSuccess) {
-        //         this.isAuthenticated = true;
-        //         return this.isAuthenticated;
-        //     }
-        // } catch (error) {
-        //     console.log(error);
-        // }
+    async authenticate(username, password) {
+        try {
+            const response =  await axios.post(AppConfig.auth.tokenUrl, { username: username, password: password });
+            const res = response.data;
+            if (res.isSuccess) {
+                localStorage.setItem(AppConfig.auth.tokenKey, res.token);
+                return true;
+            }
+        } catch (error) {
+            console.log(error.message);
+            return false;
+        }
     }
 
     signout() {
@@ -37,7 +36,7 @@ export class AuthService {
     }
 
     getAuth() {
-        return this.isAuthenticated;
+        return (localStorage.getItem(AppConfig.auth.tokenKey) != null);
     }
 }
 

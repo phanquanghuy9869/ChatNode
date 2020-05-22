@@ -41,14 +41,20 @@ const login = async (req, res) => {
     const password = req.body.password;
     let user = null;
 
-    try {
-        user = await user.login(username, password);
-    } catch (error) {
-        res.send(400).json({
-            isSuccess: false,
-            message: error.message
-        });
-    }
+    // try {
+    //     user = await userService.login(username, password);
+    // } catch (error) {
+    //     res.send(400).json({
+    //         isSuccess: false,
+    //         message: error.message
+    //     });
+    // }
+    // if (user == null) {
+    //     res.send(200).json({
+    //         isSuccess: false,
+    //         message: 'User không tồn tại'
+    //     });
+    // }
 
     let token = jwt.sign({ username: username }, config.auth.secret, { expiresIn: '69h' });
     res.json({

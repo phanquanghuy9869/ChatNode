@@ -4,8 +4,6 @@ import Header from './test/Header';
 import { Redirect, Route, Switch } from "react-router-dom";
 import Router from './components/route/Router';
 import Menu from './components/menu/menu-view';
-// const webpack = require('webpack');
-import AppConfig from './config/config';
 import Chat from './components/chat/chat-view'
 import AppRouter from './components/route/Router';
 import Login from './components/login/login-view';
@@ -15,8 +13,9 @@ import AppConfig from './config/config';
 
 axios.interceptors.request.use(
   config => {
-    const origin = new Url(config.url);
+    const origin = config.url;
     const allowedOrigin = [AppConfig.apiUrl];
+    const token = localStorage.getItem(AppConfig.auth.tokenKey);
 
     if (allowedOrigin.includes(origin)) {
       config.headers.authorization = `Bearer ${token}`;
@@ -26,7 +25,7 @@ axios.interceptors.request.use(
   err => {
     return Promise.reject(err);
   }
-)
+);
 
 function App() {
   return (

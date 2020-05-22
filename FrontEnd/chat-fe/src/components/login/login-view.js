@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,8 +14,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Auth from '../auth/AuthService'; import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types'
-
-
 
 function Copyright() {
   return (
@@ -52,15 +50,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
-  const [state, setState] = React.useState({redirect: false});
+  const [state, setState] = React.useState({ redirect: false });
 
-  function auth(e) {
+  async function login(e) {
     e.preventDefault();
-    Auth.authenticate();
-
-    setState({
-      redirect: true
-    });
+    const username = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const isLoginSuccess = await Auth.authenticate(username, password);
+    if (isLoginSuccess) {
+      setState({
+        redirect: true
+      });
+    } else {
+      alert('Đăng nhập không thành công');
+    }
   }
 
   const renderRedirect = () => {
@@ -115,7 +118,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={auth}
+            onClick={login}
           >
             Sign In
           </Button>
