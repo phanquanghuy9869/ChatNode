@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -49,25 +49,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
+  const [redirect, setRedirect] = useState(false);
   const classes = useStyles();
-  const [state, setState] = React.useState({ redirect: false });
 
-  async function login(e) {
+  function login(e) {
     e.preventDefault();
-    const username = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const isLoginSuccess = await Auth.authenticate(username, password);
-    if (isLoginSuccess) {
-      setState({
-        redirect: true
-      });
-    } else {
-      alert('Đăng nhập không thành công');
-    }
+    // const username = document.getElementById('email').value;
+    // const password = document.getElementById('password').value;
+    // const isLoginSuccess = true;
+    setRedirect(true);
+    // if (isLoginSuccess) {
+    //   setRedirect(true);
+    // } else {
+    //   alert('Đăng nhập không thành công');
+    // }
   }
 
   const renderRedirect = () => {
-    if (state.redirect) {
+    console.log('reder redirect: ', redirect);
+    if (redirect) {
       return <Redirect to='/' />
     }
   }
