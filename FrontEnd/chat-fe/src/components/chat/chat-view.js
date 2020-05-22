@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import socketIOClient from 'socket.io-client';
 import config from '../../config/config';
 import axios from 'axios';
+import './chat-view.js';
 
 const ENDPOINT = config.apiUrl;
 
 const Chat = () => {
     const [messages, setMessage] = useState([]);
-    const [currentMesg, setCurrentMsg] = useState('');
     // let socket = null;
 
     let socket = socketIOClient(ENDPOINT);
@@ -27,10 +27,11 @@ const Chat = () => {
 
     const chatMsg = (e) => {
         e.preventDefault();
-        console.log('submit');
+        const currentMesg = e.target.msg.value;
         socket.emit('chat_message', currentMesg);
     }
 
+    socket.emit('username', 'Mr huy');
 
     return (
         <div className="chat-container">
@@ -42,7 +43,7 @@ const Chat = () => {
                 }
             </ul>
             <form action="/" method="POST" id="chatForm" onSubmit={chatMsg}>
-                <input placeholder="type your message here..." /><button>Send</button>
+                <input placeholder="type your message here..." name="msg"/><button>Send</button>
             </form>
         </div>
     );
