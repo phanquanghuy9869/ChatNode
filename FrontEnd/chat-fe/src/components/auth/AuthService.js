@@ -15,21 +15,21 @@ import AppConfig from '../../config/config';
 
 export class AuthService {
     constructor() {
-        this.isAuthenticated = false;
+        this.isAuthenticated = true;
     }
 
     async authenticate() {
         this.isAuthenticated = true;
-        try {
-            const response =  await axios.get(AppConfig.auth.token);
-            const res = response.data;
-            if (res.isSuccess) {
-                this.isAuthenticated = true;
-                return this.isAuthenticated;
-            }
-        } catch (error) {
-            console.log(error);
-        }
+        // try {
+        //     const response =  await axios.get(AppConfig.auth.token);
+        //     const res = response.data;
+        //     if (res.isSuccess) {
+        //         this.isAuthenticated = true;
+        //         return this.isAuthenticated;
+        //     }
+        // } catch (error) {
+        //     console.log(error);
+        // }
     }
 
     signout() {

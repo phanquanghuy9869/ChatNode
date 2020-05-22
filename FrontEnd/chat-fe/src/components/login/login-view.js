@@ -65,7 +65,7 @@ export default function SignIn() {
 
   const renderRedirect = () => {
     if (state.redirect) {
-      return <Redirect to='/target' />
+      return <Redirect to='/' />
     }
   }
 

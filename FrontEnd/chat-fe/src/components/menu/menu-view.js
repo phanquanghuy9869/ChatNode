@@ -18,14 +18,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import {
-  BrowserRouter,
   Link,
-  Switch,
-  Route,
   Redirect,
   withRouter
 } from 'react-router-dom';
-import AppRouter from '../route/Router';
 import Auth from '../auth/AuthService';
 
 const drawerWidth = 240;
@@ -165,7 +161,6 @@ const PersistentDrawerLeft = () => {
       >
         <div className={classes.drawerHeader} />
         <div>
-          <AppRouter />
         </div>
       </main>
     </div>
