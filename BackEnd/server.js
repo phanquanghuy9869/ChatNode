@@ -16,7 +16,7 @@ app.use(handleError)
 // cor
 app.use(cors());
 app.get('/', function (rq, rp) {
-  rp.sendFile('C:\\Workspace\\Nodejs\\Chat\\ChatNode\\BackEnd\\index.html');
+  rp.sendFile('E:\\WorkSpace\\NodeJs\\ChatNodeJs\\ChatNode\\BackEnd\\index.html');
 })
 registerModule(app);
 

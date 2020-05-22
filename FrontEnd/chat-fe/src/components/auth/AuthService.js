@@ -15,7 +15,7 @@ import AppConfig from '../../config/config';
 
 export class AuthService {
     constructor() {
-        this.isAuthenticated = true;
+        this.isAuthenticated = false;
     }
 
     async authenticate() {

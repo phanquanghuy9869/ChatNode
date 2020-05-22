@@ -6,6 +6,8 @@ import Menu from './components/menu/menu-view';
 // const webpack = require('webpack');
 import AppConfig from './config/config';
 import Chat from './components/chat/chat-view'
+import AppRouter from './components/route/Router';
+import Login from './components/login/login-view';
 
 // function App() {
 //   const code = AppConfig.apiUrl;
@@ -22,7 +24,9 @@ function App() {
   return (
     <div className="App">
       {/* <Menu />      */}
-      <Chat />
+      {/* <Chat /> */}
+      {/* <AppRouter /> */}
+      <Login />
     </div>
   );
 }

@@ -20,16 +20,17 @@ function initCache(cache) {
 
 function username(username) {
     this.socket.username = username;   
-    this.io.to(this.socket.room).emit('is_online', '🔵 <i>' + this.socket.username + ' join the chat room: </i>' + this.socket.room);
+    this.io.to(this.socket.room).emit('is_online', '🔵' + this.socket.username);
 }
 
 function disconnect(username) {
     this.socket.username = username;
-    this.io.to(this.socket.room).emit('is_online', '🔴 <i>' + this.socket.username + ' join the chat..</i>');
+    this.io.to(this.socket.room).emit('is_offline', '🔴' + this.socket.username);
 }
 
 function chat_message(msg) {
-    this.io.to(this.socket.room).emit('chat_message', '<strong>' + this.socket.username + '</strong>: ' + msg);
+    console.log({ username: this.socket.username, message: msg});
+    this.io.to(this.socket.room).emit('chat_message', { username: this.socket.username, message: msg});
 }
 
 module.exports = ChatHandler;
