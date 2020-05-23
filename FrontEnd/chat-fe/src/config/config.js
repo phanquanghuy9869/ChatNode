@@ -7,6 +7,9 @@ const AppConfig  = {
     auth: {
         tokenUrl: env.REACT_APP_API_URL + env.REACT_APP_TOKEN_URL,
         tokenKey: 'tok',
+    },
+    user: {
+        createUserUrl: env.REACT_APP_API_URL + env.REACT_APP_CREATE_USER_URL,
     }
 };
 

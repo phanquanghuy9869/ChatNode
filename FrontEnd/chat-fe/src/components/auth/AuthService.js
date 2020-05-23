@@ -35,8 +35,9 @@ export class AuthService {
         this.isAuthenticated = false;
     }
 
-    getAuth() {
-        return (localStorage.getItem(AppConfig.auth.tokenKey) != null);
+    isAuthenticate() {
+        const rs = localStorage.getItem(AppConfig.auth.tokenKey) != null;
+        return rs;
     }
 }
 

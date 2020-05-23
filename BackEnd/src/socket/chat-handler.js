@@ -29,7 +29,6 @@ function disconnect(username) {
 }
 
 function chat_message(msg) {
-    console.log({ username: this.socket.username, message: msg});
     this.io.to(this.socket.room).emit('chat_message', { username: this.socket.username, message: msg});
 }
 

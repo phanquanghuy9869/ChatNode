@@ -1,15 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import Header from './test/Header';
-import { Redirect, Route, Switch } from "react-router-dom";
-import Router from './components/route/Router';
-import Menu from './components/menu/menu-view';
-import Chat from './components/chat/chat-view'
-import AppRouter from './components/route/Router';
+import { Route, Switch } from "react-router-dom";
 import Login from './components/login/login-view';
 import Home from './components/home/home-view';
 import axios from 'axios';
 import AppConfig from './config/config';
+import { HomeRouter } from './components/route/Router';
 
 axios.interceptors.request.use(
   config => {
@@ -30,10 +26,7 @@ axios.interceptors.request.use(
 function App() {
   return (
     <div className="App">
-      <Switch>
-        <Route path='/login' component={Login} />
-        <Route path='/' component={Home} />
-      </Switch>
+      <HomeRouter />
     </div>
   );
 }

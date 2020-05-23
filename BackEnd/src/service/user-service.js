@@ -9,7 +9,7 @@ exports.createUser = async function (body) {
     }
 
     const hashPass = await encryptHelper.cryptPassword(body.password);
-    const user = { username: body.username, password: hashPass, email: body.email };
+    const user = { username: body.email, password: hashPass, email: body.email, firstName: body.firstName, lastName: body.lastName };
     return await userRepo.createUser(user);
 }
 

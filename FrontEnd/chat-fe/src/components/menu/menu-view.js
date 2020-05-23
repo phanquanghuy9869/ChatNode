@@ -22,7 +22,7 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom';
-import Auth from '../auth/AuthService';
+import { AppRouter } from '../route/Router';
 
 const drawerWidth = 240;
 
@@ -161,6 +161,7 @@ const PersistentDrawerLeft = () => {
       >
         <div className={classes.drawerHeader} />
         <div>
+          <AppRouter />
         </div>
       </main>
     </div>
@@ -168,15 +169,16 @@ const PersistentDrawerLeft = () => {
 }
 
 const Menu = withRouter(({ history }) => (
-  Auth.isAuthenticated ? (
-    <div>
-      <PersistentDrawerLeft />
-    </div>
-  ) : (
-      <Redirect to={{
-        pathname: '/login'
-      }} />
-    )
+  // Auth.getAuth() ? (
+  //   <div>
+  //     <PersistentDrawerLeft />
+  //   </div>
+  // ) : (
+  //     <Redirect to={{
+  //       pathname: '/login'
+  //     }} />
+  //   )
+  <PersistentDrawerLeft />
 ))
 
 export default Menu;

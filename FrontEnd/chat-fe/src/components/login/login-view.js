@@ -52,26 +52,23 @@ export default function SignIn() {
   const [redirect, setRedirect] = useState(false);
   const classes = useStyles();
 
-  function login(e) {
+  async function login(e) {
     e.preventDefault();
-    // const username = document.getElementById('email').value;
-    // const password = document.getElementById('password').value;
-    // const isLoginSuccess = true;
-    setRedirect(true);
-    // if (isLoginSuccess) {
-    //   setRedirect(true);
-    // } else {
-    //   alert('Đăng nhập không thành công');
-    // }
-  }
-
-  const renderRedirect = () => {
-    console.log('reder redirect: ', redirect);
-    if (redirect) {
-      return <Redirect to='/' />
+    const username = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const isLoginSuccess = await Auth.authenticate(username, password);    
+    if (isLoginSuccess) {
+      setRedirect(true);
+    } else {
+      alert('Đăng nhập không thành công');
     }
   }
 
+  const renderRedirect = () => {
+    if (redirect) {
+      return <Redirect to='/chat' />
+    }
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -129,7 +126,7 @@ export default function SignIn() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="register" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
