@@ -15,10 +15,11 @@ exports.createUser = async function (body) {
 
 validateUser = async function (user) {
     let error = '';
-    const isExisted = await userRepo.isExists(user.username);
+    const isExisted = await userRepo.isExists(user.email);
     if (isExisted) {
         error += 'This username is existed!';
     }
+    
     const isSuccess = error === '' ? true : false;
     return { isSuccess: isSuccess, message: error };
 }
