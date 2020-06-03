@@ -41,7 +41,7 @@ exports.isExists = async function (collectionName, query) {
     }
 }
 
-exports.getOneRecord = async function (collectionName, query, fields) {
+exports.findOne = async function (collectionName, query, fields) {
     const ctx = await exports.connectDb();
     try {
         const record = await ctx.database.collection(collectionName).findOne(query, fields);
@@ -51,7 +51,27 @@ exports.getOneRecord = async function (collectionName, query, fields) {
     }
 }
 
-exports.getRecords = async function(collectionName, query, fields) {
+exports.findAll = async (collectionName) => {
+    const ctx = await exports.connectDb();
+    try {
+        const record = await ctx.database.collection(collectionName).find().toArray();
+        return record;
+    } finally {
+        ctx.client.close();
+    }
+}
+
+exports.find = async (collectionName, query, field) => {
+    const ctx = await exports.connectDb();
+    try {
+        const record = await ctx.database.collection(collectionName).find(query).project(field).toArray();
+        return record;
+    } finally {
+        ctx.client.close();
+    }
+}
+
+exports.getRecords = async function (collectionName, query, fields) {
     const ctx = await exports.connectDb();
     try {
         const records = await ctx.database.collection(collectionName).find(query, fields);

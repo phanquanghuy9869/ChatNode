@@ -6,7 +6,7 @@ let validateToken = (req, res, next) => {
     let token = req.headers['x-access-token'] || req.headers['authorization'];
 
     if (!token) {
-        return res.json({
+        return res.status(401).json({
             isSuccess: false,
             message: 'Invalid authentication'
         });
@@ -19,17 +19,17 @@ let validateToken = (req, res, next) => {
     if (token) {
         jwt.verify(token, config.auth.secret, (err, decoded) => {
             if (err) {
-                return res.json({
+                return res.status(401).json({
                     isSuccess: false,
                     message: 'Invalid authentication'
                 });
             } else {
-                req.decoded = decoded;
+                req.context = decoded;
                 next();
             }
         });
     } else {
-        return res.json({
+        return res.status(401).json({
             isSuccess: false,
             message: 'Invalid authentication'
         });
@@ -44,16 +44,18 @@ const login = async (req, res) => {
     try {
         user = await userService.login(username, password);
     } catch (error) {
-        res.send(400).json({
+        res.json({
             isSuccess: false,
             message: error.message
         });
+        return;
     }
     if (user == null) {
-        res.send(200).json({
+        res.json({
             isSuccess: false,
             message: 'User không tồn tại'
         });
+        return;
     }
 
     let token = jwt.sign({ username: username }, config.auth.secret, { expiresIn: '69h' });
@@ -62,6 +64,7 @@ const login = async (req, res) => {
         token: token,
         message: 'Authentication successful!'
     });
+    return;
 }
 
 const index = (req, res) => {

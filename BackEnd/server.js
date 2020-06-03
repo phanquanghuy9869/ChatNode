@@ -11,15 +11,13 @@ app.use(bodyParser.urlencoded({ // Middleware
   extended: true
 }));
 app.use(bodyParser.json());
-// custom error handler
-app.use(handleError)
 // cor
 app.use(cors({credentials: true, origin: true}));
-app.get('/', function (rq, rp) {
-  rp.sendFile('E:\\WorkSpace\\NodeJs\\ChatNodeJs\\ChatNode\\BackEnd\\index.html');
-})
+
 registerModule(app);
 
+// custom error handler
+app.use(handleError);
 
 server = app.listen(689, function () {
   console.log('Server running ...');
@@ -27,9 +25,9 @@ server = app.listen(689, function () {
 socketHandler.registerSocket(server);
 
 process
-  .on('unhandledRejection', (reason, p) => {
-    console.error(reason, 'Unhandled Rejection at Promise', p);
-  })
+  // .on('unhandledRejection', (reason, p) => {
+  //   console.error(reason, 'Unhandled Rejection at Promise', p);
+  // })
   .on('uncaughtException', err => {
     console.error(err, 'Uncaught Exception thrown');
     process.exit(1);

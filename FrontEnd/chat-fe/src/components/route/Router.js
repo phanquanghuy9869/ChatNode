@@ -8,12 +8,15 @@ import Login from '../login/login-view';
 import Chat from '../chat/chat-view';
 import Home from '../home/home-view';
 import SignUp from '../register/register-view';
+import CreateRoom from '../chat-room/create-room-view';
 
 const AppRouter = (props) => (
     <Switch>
         {/* <Route exact path='/login' component={Login} /> */}
         <PrivateRoute exact path='/public' component={Landing} />
+        <PrivateRoute exact path='/add-room' component={CreateRoom} />
         <PrivateRoute exact path='/menu' component={Menu} />
+        <PrivateRoute exact path='/create-room' component={CreateRoom} />
         <PrivateRoute exact path='/chat' component={Chat} />
         {/* <PrivateRoute path='/' component={Home} /> */}
         <PrivateRoute path="/protected" component={DashBoard} />

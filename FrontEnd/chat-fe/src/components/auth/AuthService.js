@@ -1,22 +1,8 @@
-// const Auth = {
-//     isAuthenticated: false,
-//     authenticate() {
-//         this.isAuthenticated = true;
-//     },
-//     signout() {
-//         this.isAuthenticated = false;
-//     },
-//     getAuth() {
-//         return this.isAuthenticated;
-//     }
-// };
 import axios from 'axios';
 import AppConfig from '../../config/config';
 
 export class AuthService {
-    constructor() {
-    }
-
+    
     async authenticate(username, password) {
         try {
             const response =  await axios.post(AppConfig.auth.tokenUrl, { username: username, password: password });

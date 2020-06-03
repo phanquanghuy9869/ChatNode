@@ -2,8 +2,9 @@ const dbCtx = require('../database/mongo-db.js');
 
 const collectionName = 'user';
 
-exports.getUser = async function () {
-
+exports.getAll = async function () {
+    const rs = await dbCtx.find(collectionName, {}, { username: true });
+    return rs;
 }
 
 exports.createUser = async function (user) {
@@ -17,6 +18,6 @@ exports.isExists = async function (username) {
 }
 
 exports.getUserByUsername = async function (username) {
-    const record = await dbCtx.getOneRecord(collectionName, { username: username }, {});
+    const record = await dbCtx.findOne(collectionName, { username: username }, {});
     return record;
 }

@@ -10,6 +10,9 @@ const AppConfig  = {
     },
     user: {
         createUserUrl: env.REACT_APP_API_URL + env.REACT_APP_CREATE_USER_URL,
+    },
+    room: {
+        createRoomUrl: env.REACT_APP_API_URL + env.REACT_APP_CREATE_ROOM_URL
     }
 };
 

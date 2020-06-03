@@ -10,6 +10,9 @@ const UserService = {
             email: email,
             password: password
         });
+    },
+    getAll: async() => {
+        return await axios.post('/user/getall', {});
     }
 }
 

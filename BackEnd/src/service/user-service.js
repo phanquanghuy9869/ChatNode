@@ -13,6 +13,10 @@ exports.createUser = async function (body) {
     return await userRepo.createUser(user);
 }
 
+exports.getAll = async function () {
+    return await userRepo.getAll();
+}
+
 validateUser = async function (user) {
     let error = '';
     const isExisted = await userRepo.isExists(user.email);
