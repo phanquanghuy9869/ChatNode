@@ -2,7 +2,6 @@ var express = require('express');
 const bodyParser = require('body-parser');
 const process = require('process');
 const cors = require('cors');
-const socketHandler = require('./src/socket/socket-handler');
 const { handleError } = require('./src/utilities/error-handler');
 const { registerModule } = require('./src/route/module-router');
 
@@ -19,11 +18,6 @@ registerModule(app);
 // custom error handler
 app.use(handleError);
 
-server = app.listen(689, function () {
-  console.log('Server running ...');
-});
-socketHandler.registerSocket(server);
-
 process
   // .on('unhandledRejection', (reason, p) => {
   //   console.error(reason, 'Unhandled Rejection at Promise', p);
@@ -34,3 +28,5 @@ process
   });
 
 // module.exports = { server: app, ioServer: io};
+
+module.exports = app;

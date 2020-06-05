@@ -4,6 +4,7 @@
   "description": "chat back end",
   "main": "server.js",
   "scripts": {
+    "start": "nodemon start.js",
     "test": "jest"
   },
   "author": "",
@@ -15,6 +16,8 @@
     "express.js": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.7",
+    "mongoose": "^5.9.17",
+    "nodemon": "^2.0.4",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {

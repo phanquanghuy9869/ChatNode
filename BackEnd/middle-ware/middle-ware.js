@@ -4,7 +4,6 @@ const userService = require('../src/service/user-service');
 
 let validateToken = (req, res, next) => {
     let token = req.headers['x-access-token'] || req.headers['authorization'];
-
     if (!token) {
         return res.status(401).json({
             isSuccess: false,
@@ -19,6 +18,7 @@ let validateToken = (req, res, next) => {
     if (token) {
         jwt.verify(token, config.auth.secret, (err, decoded) => {
             if (err) {
+                console.log('Token error: ', err);
                 return res.status(401).json({
                     isSuccess: false,
                     message: 'Invalid authentication'
