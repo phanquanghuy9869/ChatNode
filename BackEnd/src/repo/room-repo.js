@@ -1,6 +1,6 @@
 const dbCtx = require('../database/mongo-db.js');
 
-const collectionName = 'room';
+const collectionName = 'rooms';
 
 exports.createRoom = async (room) => {
     const rs = await dbCtx.insertOne(collectionName, room);

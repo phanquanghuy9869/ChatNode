@@ -6,7 +6,7 @@ exports.createRoom = async (rq, rp, next) => {
     try {
         const body = rq.body;
         const room = { name: body.name, user: body.user };
-        const validate = validateUser(room);
+        const validate = validateRoom(room);
         if (!validate.isSuccess) {
             rp.json(respond.fail(validate.message));
         }
@@ -26,7 +26,7 @@ exports.getAll = async (rq, rp, next) => {
     }
 }
 
-function validateUser(room) {
+function validateRoom(room) {
     let errors = [];
     if (room.name == null || room.name.trim() == '') {
         errors.push('Room name can not be empty');

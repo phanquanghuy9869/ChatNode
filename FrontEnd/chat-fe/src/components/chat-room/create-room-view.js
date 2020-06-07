@@ -1,19 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
-import { Chip } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { submitRoom, getUser } from './create-room-container';
+import { getUser, submitRoom } from './create-room-container';
+import { Redirect } from 'react-router-dom';
 
 export default function CreateRoom() {
 
@@ -25,21 +17,22 @@ export default function CreateRoom() {
 
     let [seleted, setSelected] = useState([]);
     let [userOptions, setUserOptions] = useState([]);
+    let [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
         async function loadUser() {
-            const rs = await getUser();
+            const rs = (await getUser()).data;
             if (!rs.isSuccess) {
                 console.log('Load user error: ', rs.message);
                 return;
             }
             const user = rs.data;
-            const userOptions = user.map((x) => ({value: x.user, label: x.user}));
+            const userOptions = user.map((x) => ({ value: x.username, label: x.username }));
             setUserOptions(userOptions);
         }
 
         loadUser();
-    },[]);
+    }, []);
 
     function handleChange(selectedOption) {
         setSelected(selectedOption);
@@ -50,9 +43,15 @@ export default function CreateRoom() {
         const roomName = document.getElementById('roomName').value;
         const users = seleted.map(x => x.value);
         const room = { name: roomName, user: users };
-        await submitRoom(room);
+        const isSuccess = await submitRoom(room);
+        setRedirect(true);
     }
 
+    const renderRedirect = () => {
+        if (redirect) {
+            return <Redirect to='/chat' />
+        }
+    }
     // const filterColors = (inputValue) => {
     //     return userOptions.filter(i =>
     //         i.label.toLowerCase().includes(inputValue.toLowerCase())
@@ -71,9 +70,10 @@ export default function CreateRoom() {
         <div>
             <CssBaseline />
             <header>
-                <h4>Create room</h4>
+                <h4>Create room: {redirect.toString()}</h4>
             </header>
             <main>
+                {renderRedirect()}
                 <form>
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={12}>

@@ -10,10 +10,10 @@ import { HomeRouter } from './components/route/Router';
 axios.interceptors.request.use(
   config => {
     const origin = config.url;
-    const allowedOrigin = [AppConfig.apiUrl];
+    const allowedOrigin = AppConfig.apiUrl;
     const token = localStorage.getItem(AppConfig.auth.tokenKey);
 
-    if (allowedOrigin.includes(origin)) {
+    if (origin.startsWith(allowedOrigin)) {
       config.headers.authorization = `Bearer ${token}`;
     }
     return config;

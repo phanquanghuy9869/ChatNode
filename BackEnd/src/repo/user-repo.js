@@ -1,6 +1,6 @@
 const dbCtx = require('../database/mongo-db.js');
 
-const collectionName = 'user';
+const collectionName = 'users';
 
 exports.getAll = async function () {
     const rs = await dbCtx.find(collectionName, {}, { username: true });

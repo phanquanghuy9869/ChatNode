@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon start.js",
-    "test": "jest"
+    "test": "jest",
+    "test-debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand"
   },
   "author": "",
   "license": "ISC",
@@ -22,12 +23,15 @@
   },
   "devDependencies": {
     "jest": "^26.0.1",
+    "jest-environment-node-debug": "^2.0.0",
     "supertest": "^4.0.2"
   },
   "jest": {
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
-      "/node_modules/"
+      "/node_modules/",
+      "/dist/",
+      "/build/"
     ]
   }
 }

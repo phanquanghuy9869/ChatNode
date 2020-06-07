@@ -4,7 +4,6 @@ import AppConfig from '../../config/config';
 export class AuthService {
     
     async authenticate(username, password) {
-        return true;
         try {
             const response =  await axios.post(AppConfig.auth.tokenUrl, { username: username, password: password });
             const res = response.data;
@@ -23,7 +22,6 @@ export class AuthService {
     }
 
     isAuthenticate() {
-        return true;
         const rs = localStorage.getItem(AppConfig.auth.tokenKey) != null;
         return rs;
     }

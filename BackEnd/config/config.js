@@ -4,7 +4,6 @@ const dotenv = require('dotenv');
 
 var envFromRealEnvironment = process.env.NODE_ENV || 'development'
 var path = `.env.${ envFromRealEnvironment }`;
-console.log('Config path: ', path);
 
 dotenv.config({ path, silent: envFromRealEnvironment === 'production' })
 

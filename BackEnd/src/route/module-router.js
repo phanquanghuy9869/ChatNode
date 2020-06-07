@@ -6,6 +6,6 @@ const { validateToken } = require('../../middle-ware/middle-ware');
 
 exports.registerModule = (app) => {
     app.use('/auth', authRouter);
-    app.use('/user', validateToken, userRouter);
+    app.use('/user', userRouter);
     app.use('/room', validateToken, roomRouter);
 }

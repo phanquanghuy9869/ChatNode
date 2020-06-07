@@ -12,7 +12,7 @@ const UserService = {
         });
     },
     getAll: async() => {
-        return await axios.post('/user/getall', {});
+        return await axios.post(AppConfig.user.getAllUserUrl);
     }
 }
 

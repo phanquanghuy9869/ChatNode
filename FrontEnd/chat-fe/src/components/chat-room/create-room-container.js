@@ -11,8 +11,19 @@ export async function submitRoom(room) {
         return;
     }
 
-    const rs = await roomService.CreateRoom(room);
-    return rs;
+    try {
+        const rs = await roomService.CreateRoom(room);
+        if (rs.data.isSuccess) {
+            alert('Thêm thành công!');
+            return true;
+        } else {
+            alert(rs.data.message);
+            return false;
+        }
+    } catch (error) {
+        alert('Có lỗi xảy ra!');
+        return false;
+    }
 }
 
 export async function getUser() {

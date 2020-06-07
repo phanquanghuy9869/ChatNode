@@ -11,14 +11,13 @@ let validateToken = (req, res, next) => {
         });
     }
 
-    if (token.includes('Bearer ')) {
-        token = token.slice(7, token.lenth);
+    if (token.includes('Bearer') || token.includes('bearer')) {
+        token = token.slice(7, token.length);
     }
 
     if (token) {
         jwt.verify(token, config.auth.secret, (err, decoded) => {
             if (err) {
-                console.log('Token error: ', err);
                 return res.status(401).json({
                     isSuccess: false,
                     message: 'Invalid authentication'
