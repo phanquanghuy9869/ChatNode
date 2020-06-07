@@ -169,34 +169,7 @@ const PersistentDrawerLeft = () => {
 }
 
 const Menu = withRouter(({ history }) => (
-  // Auth.getAuth() ? (
-  //   <div>
-  //     <PersistentDrawerLeft />
-  //   </div>
-  // ) : (
-  //     <Redirect to={{
-  //       pathname: '/login'
-  //     }} />
-  //   )
   <PersistentDrawerLeft />
 ))
 
 export default Menu;
-
-// const Menu = withRouter(({ history }) => (
-//   Auth.isAuthenticated ? (
-//     <div>
-//       Welcome! <button onClick={() => {
-//         Auth.signout(() => history.push('/login'))
-//       }}>Sign out</button>
-//       {/* <ul>
-//         <li><Link to="/about">About</Link></li>
-//         <li><Link to="/protected">Protected Page</Link></li>
-//       </ul> */}
-//     </div>
-//   ) : (
-//       <Redirect to={{
-//         pathname: '/login'
-//       }} />
-//     )
-// ))

@@ -6,6 +6,8 @@ import Home from './components/home/home-view';
 import axios from 'axios';
 import AppConfig from './config/config';
 import { HomeRouter } from './components/route/Router';
+import { createStore } from 'redux';
+import reducer from './reducer';
 
 axios.interceptors.request.use(
   config => {
@@ -22,6 +24,8 @@ axios.interceptors.request.use(
     return Promise.reject(err);
   }
 );
+
+const store = createStore(reducer);
 
 function App() {
   return (

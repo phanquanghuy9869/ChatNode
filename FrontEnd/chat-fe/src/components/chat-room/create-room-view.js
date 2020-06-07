@@ -8,13 +8,6 @@ import { getUser, submitRoom } from './create-room-container';
 import { Redirect } from 'react-router-dom';
 
 export default function CreateRoom() {
-
-    // const userOptions = [
-    //     { value: 'chocolate', label: 'Chocolate' },
-    //     { value: 'strawberry', label: 'Strawberry' },
-    //     { value: 'vanilla', label: 'Vanilla' }
-    // ];
-
     let [seleted, setSelected] = useState([]);
     let [userOptions, setUserOptions] = useState([]);
     let [redirect, setRedirect] = useState(false);
