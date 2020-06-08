@@ -25,6 +25,10 @@ export class AuthService {
         const rs = localStorage.getItem(AppConfig.auth.tokenKey) != null;
         return rs;
     }
+
+    getToken() {
+        return localStorage.getItem(AppConfig.auth.tokenKey);
+    }
 }
 
 export default new AuthService();

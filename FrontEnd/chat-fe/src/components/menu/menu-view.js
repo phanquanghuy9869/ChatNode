@@ -23,9 +23,11 @@ import {
   withRouter
 } from 'react-router-dom';
 import { AppRouter } from '../route/Router';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { getAllRoom, getAllUser } from './menu-view.container';
+import DeckIcon from '@material-ui/icons/Deck';
 
-const drawerWidth = 240;
+const drawerWidth = 380;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -133,7 +135,7 @@ const PersistentDrawerLeft = () => {
           <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography>
-        </Toolbar>
+        </Toolbar> .
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -151,20 +153,20 @@ const PersistentDrawerLeft = () => {
         </div>
         <Divider />
         <List>
-          {['Public', 'protected', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+          {rooms.map((r, index) => (
+            <ListItem button key={r.name}>
+              <ListItemIcon><DeckIcon /></ListItemIcon>
               {/* <ListItemText primary={text} /> */}
-              <Link to={text}>{text}</Link><br />
+              <Link to={r.name}>{r.name}</Link><br />
             </ListItem>
           ))}
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+          {users.map((u, index) => (
+            <ListItem button key={u.username}>
+              <ListItemIcon><AccountCircleIcon /></ListItemIcon>
+              <ListItemText primary={u.username} />
             </ListItem>
           ))}
         </List>
