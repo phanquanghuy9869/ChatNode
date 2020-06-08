@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -23,6 +23,7 @@ import {
   withRouter
 } from 'react-router-dom';
 import { AppRouter } from '../route/Router';
+import { getAllRoom, getAllUser } from './menu-view.container';
 
 const drawerWidth = 240;
 
@@ -87,6 +88,7 @@ const PersistentDrawerLeft = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [{ users, rooms }, setState] = React.useState({ users: [], rooms: []});
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -95,6 +97,19 @@ const PersistentDrawerLeft = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const fetchData = async () => {
+    const userRes = await getAllUser();
+    const roomRes = await getAllRoom();
+    console.log('user res: ', userRes);
+    console.log('room res:', roomRes);
+
+    setState({users: userRes, rooms: roomRes});
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className={classes.root}>

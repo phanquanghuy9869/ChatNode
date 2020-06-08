@@ -13,7 +13,8 @@ const UserService = {
     },
     getAll: async() => {
         return await axios.post(AppConfig.user.getAllUserUrl);
-    }
+    },
+    
 }
 
 export default UserService;
