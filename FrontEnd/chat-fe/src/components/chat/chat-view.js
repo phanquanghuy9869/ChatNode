@@ -3,12 +3,22 @@ import socketIOClient from 'socket.io-client';
 import config from '../../config/config';
 import axios from 'axios';
 import './chat.css';
+import AuthService from '../auth/AuthService';
 
 const ENDPOINT = config.apiUrl;
 
 const Chat = () => {
     const [messages, setMessage] = useState([]);
-    const { current: socket } = useRef(socketIOClient(ENDPOINT));
+    const { current: socket } = useRef(socketIOClient(ENDPOINT, {
+        origins: '*:*',
+        transportOptions: {
+            polling: {
+                extraHeaders: {
+                    'authorization': `Bearer ${AuthService.getToken()}`
+                }
+            }
+        }
+    }));
     // let socket = null;
 
     // let socket = socketIOClient(ENDPOINT);

@@ -1,10 +1,29 @@
 
 const chatHandler = require('./chat-handler');
+const socketioJwt = require('socketio-jwt');
+const Appconfig = require('../../config/config');
 
 exports.registerSocket = function (server) {
-    const io = require('socket.io')(server);
+    const io = require('socket.io')(server, {
+        handlePreflightRequest: (req, res) => {
+            const headers = {
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
+                "Access-Control-Allow-Credentials": true
+            };
+            res.writeHead(200, headers);
+            res.end();
+        }
+    });
+    io.use(socketioJwt.authorize({
+        secret: Appconfig.auth.secret,
+        handshake: true,
+        auth_header_required: true,
+        callback: 15000,
+    }));
 
     io.on('connection', function (socket) {
+        console.log('hello!', socket.decoded_token);
         var eventHandlers = {
             chatHandler: new chatHandler(socket, io)
         }

@@ -153,22 +153,22 @@ const PersistentDrawerLeft = () => {
         </div>
         <Divider />
         <List>
-          {rooms.map((r, index) => (
+          { !!(rooms) ? rooms.map((r, index) => (
             <ListItem button key={r.name}>
               <ListItemIcon><DeckIcon /></ListItemIcon>
               {/* <ListItemText primary={text} /> */}
               <Link to={r.name}>{r.name}</Link><br />
             </ListItem>
-          ))}
+          )) : ''}
         </List>
         <Divider />
         <List>
-          {users.map((u, index) => (
+          { !!(users) ? users.map((u, index) => (
             <ListItem button key={u.username}>
               <ListItemIcon><AccountCircleIcon /></ListItemIcon>
               <ListItemText primary={u.username} />
             </ListItem>
-          ))}
+          )) : ''}
         </List>
       </Drawer>
       <main
