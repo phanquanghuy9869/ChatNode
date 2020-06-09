@@ -10,14 +10,12 @@ const ENDPOINT = config.apiUrl;
 const Chat = () => {
     const [messages, setMessage] = useState([]);
     const { current: socket } = useRef(socketIOClient(ENDPOINT, {
-        origins: '*:*',
-        transportOptions: {
-            polling: {
-                extraHeaders: {
-                    'authorization': `Bearer ${AuthService.getToken()}`
-                }
-            }
-        }
+        query: `token=${AuthService.getToken()}`
+        // transportOptions: {
+        //     polling: {
+        //       extraHeaders: {  "Authorization": `Bearer ${AuthService.getToken()}` }
+        //     },
+        //   }
     }));
     // let socket = null;
 

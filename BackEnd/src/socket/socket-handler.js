@@ -18,7 +18,7 @@ exports.registerSocket = function (server) {
     io.use(socketioJwt.authorize({
         secret: Appconfig.auth.secret,
         handshake: true,
-        auth_header_required: true,
+        // auth_header_required: true,
         callback: 15000,
     }));
 
