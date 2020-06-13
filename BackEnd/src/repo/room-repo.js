@@ -1,5 +1,6 @@
 const dbCtx = require('../database/mongo-db.js');
-
+const mongooseCtx = require('../database/mongoose');
+const { Room } = require('../model/schema');
 const collectionName = 'rooms';
 
 exports.createRoom = async (room) => {
@@ -14,5 +15,10 @@ exports.getAll = async () => {
 
 exports.isExists = async (roomName) => {
     const rs = await dbCtx.isExists(collectionName, { name: roomName });
+    return rs;
+}
+
+exports.getRoomByUser = async (username) => {
+    const rs = await mongooseCtx.find(Room, { user: username }, { "_id": 1 });
     return rs;
 }

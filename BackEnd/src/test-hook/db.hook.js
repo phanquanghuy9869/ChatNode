@@ -40,8 +40,8 @@ exports.setupDb = function () {
     // Connect to Mongoose
 
     beforeAll(async (done) => {
-        // await mongoose.connect(config.db.server + '/' + config.db.database);
-        await mongooseCtx.connect();
+        await mongoose.connect(config.db.server + '/' + config.db.database);
+        // await mongooseCtx.connect();
         // console.error('Finish beforeAll');
         done();
         // //create user
@@ -66,8 +66,8 @@ exports.setupDb = function () {
     // Disconnect Mongoose
     afterAll(async (done) => {
         await dropAllCollections()
-        // await mongoose.disconnect();
-        await mongooseCtx.disconnect();
+        await mongoose.disconnect();
+                // await mongooseCtx.disconnect();
         // console.error('Finish afterAll');
         done();
     })

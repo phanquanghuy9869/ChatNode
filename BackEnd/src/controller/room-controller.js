@@ -26,6 +26,20 @@ exports.getAll = async (rq, rp, next) => {
     }
 }
 
+exports.getRoomByUser = async (rq, rp, next) => {
+    try {
+        const username = rq.body.username;
+        if (username == null || username.trim() === '') {
+            rp.json(respond.fail('Invalid user input'));
+        }
+        const rs = await roomService.getRoomByUser(username);
+        rp.json(respond.success(rs));
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
 function validateRoom(room) {
     let errors = [];
     if (room.name == null || room.name.trim() == '') {

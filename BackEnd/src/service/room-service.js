@@ -15,3 +15,7 @@ exports.getAll = async () => {
 exports.isExists = async (roomName) => {
     return await roomRepo.isExists(roomName);
 }
+
+exports.getRoomByUser = async (username) => {
+    return await roomRepo.getRoomByUser(username);
+}

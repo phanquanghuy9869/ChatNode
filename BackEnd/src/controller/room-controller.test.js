@@ -32,7 +32,6 @@ describe('Test room api', () => {
                 const res = await request.post('/room/getall')
                     .set('authorization', 'bearer ' + token);
                 const response = res.body;
-                console.log(response.data);
                 // console.error('2. Finish fetching data');
                 // console.error('3. Start expect');
                 expect(response.isSuccess).toBe(true);
@@ -46,6 +45,27 @@ describe('Test room api', () => {
             } catch (error) {
                 done(error);
             }
+        })
+    });
+
+    describe('Test get room by user', function () {
+        test('Should return room by user', async (done) => {
+            try {
+                const rooms = [new Room({ name: 'Room 1', user: ['Huy', 'Phan'] }), new Room({ name: 'Room 2', user: ['Huy 2', 'Phan 2', 'Huy'] })];
+                await Room.insertMany(rooms);
+                const res = await request.post('/room/getroombyuser').set('authorization', `bearer ${token}`)
+                    .send({ username: 'Huy' });
+                const response = res.body;
+                expect(response.isSuccess).toBe(true);
+                expect(response.data.length).toBe(2);
+                expect(response.data[0]._id).toBeTruthy();
+                expect(response.data[1]._id).toBeTruthy();
+                done();
+            } catch (error) {
+                console.log("Log error: ", error)
+                done(error);
+            }
+           
         })
     });
 })
